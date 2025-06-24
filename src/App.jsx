@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
+import { useDebounce } from 'react-use';
+import { getTrendingMovies, updateSearchCount } from './appwrite.js';
 
 
 const API_URL = 'https://api.themoviedb.org/3'
@@ -19,12 +21,24 @@ function App() {
   const [errMessage, setErrMessage] = useState('')
   const [moviesList, setMoviesList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const fetchMovies = () => {
-    let url = `${API_URL}/discover/movie?sort_by=popularity.desc`
+  const [dSearchQuery, setDSearchQuery] = useState('')
+  const [trendingMovies, setTrendingMovies] = useState([])
+
+  useDebounce(() => setDSearchQuery(searchQuery), 500, [searchQuery])
+
+  const fetchMovies = async (query = '') => {
+    setMoviesList([])
+    let url;
+    if (query == '') {
+      url = `${API_URL}/discover/movie?sort_by=popularity.desc`
+    }
+    else {
+      url = `${API_URL}/search/movie?query=${encodeURIComponent(query)}`
+    }
     setIsLoading(true)
     fetch(url, API_OPTIONS)
       .then(res => res.json()
-        .then(data => {
+        .then(async (data) => {
           if (data.Response === 'False') {
             console.log(data.Error)
             setErrMessage('Something went wrong. Please try again later.')
@@ -32,6 +46,10 @@ function App() {
           }
           else {
             setMoviesList(data.results || [])
+            if (query && data.results.length > 0) {
+              await updateSearchCount(query, data.results[0])
+
+            }
           }
         })
       )
@@ -42,9 +60,26 @@ function App() {
     setIsLoading(false)
   }
 
+  const loadTreendingMovies = async () => {
+    try {
+      const trendingMovies = await getTrendingMovies();
+      console.log(trendingMovies)
+      setTrendingMovies(trendingMovies)
+    }
+    catch {
+
+    }
+  }
+
   useEffect(() => {
-    fetchMovies()
+    fetchMovies(dSearchQuery)
+  }, [dSearchQuery])
+
+  useEffect(() => {
+    loadTreendingMovies()
   }, [])
+
+
   return (
     <main>
       <div className="pattern" />
@@ -56,6 +91,20 @@ function App() {
           </span> You'll Enjoy Without the Hassle</h1>
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </header>
+
+        {trendingMovies.length > 0 && (
+          <section className='trending'>
+            <h2>Trending Movies</h2>
+            <ul>
+              {trendingMovies.map((movie, index) => (
+                <li key={movie.$id}>
+                  <p>{index+1}</p>
+                  <img src={movie.posterUrl} alt={movie.title} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section className='all-movies'>
           <h2 className='mt-10'>
