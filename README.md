@@ -29,8 +29,8 @@ A sleek and blazing-fast movie search app built with **Vite + React**. Search mo
 ### Install
 
 ```bash
-git clone https://github.com/your-username/movieradar.git
-cd movieradar
+git clone https://github.com/abubakarmunir712/movie-app-react.git
+cd  movie-app-react
 npm install
 ```
 
