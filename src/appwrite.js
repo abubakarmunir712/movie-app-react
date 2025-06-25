@@ -18,7 +18,7 @@ export const updateSearchCount = async (searchQuery, movie) => {
                 searchTerm: searchQuery,
                 count: 1,
                 movieId: movie.id,
-                posterUrl: movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : 'https://i.ibb.co/6RRP7C9x/no-movie.png'
+                posterUrl: movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : 'https://i.ibb.co/XfRGK5Yg/no-movie.png'
             })
         }
     }

@@ -6,11 +6,11 @@
 
 /* Custom theme vars */
 @theme {
-  --color-primary: #030014; /* Main dark bg */
-  --color-light-100: #cecefb; /* Light text/accent */
-  --color-light-200: #a8b5db; /* Placeholder color */
-  --color-gray-100: #9ca4ab;
-  --color-dark-100: #0f0d23;
+  --color-primary: #030402; /* Main dark bg */
+  --color-light-100: #ffe6c7;    /* Warm light text/accent */
+  --color-light-200: #f4d4a5;    /* Softer placeholder tone */
+  --color-gray-100: #c8b6a6;     /* Muted sand-gray */
+  --color-dark-100: #3e362f;     /* Dark brown */
   --font-dm-sans: DM Sans, sans-serif;
   --breakpoint-xs: 480px; /* Custom small breakpoint */
   --background-image-hero-pattern: url("/hero-bg.png");
@@ -50,9 +50,20 @@
 /* Custom components */
 @layer components {
   .pattern {
-    /* Hero background image */
-    @apply bg-hero-pattern w-full h-screen bg-center bg-cover absolute z-0;
+    @apply w-full h-screen absolute z-0;
+    background-image:
+      radial-gradient(ellipse at center, rgba(255, 230, 199, 0.15), transparent 70%),
+      repeating-linear-gradient(
+        45deg,
+        rgba(92, 58, 26, 0.05),
+        rgba(92, 58, 26, 0.05) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    background-size: cover;
+    background-position: center;
   }
+  
 
   .wrapper {
     /* Content wrapper with padding */
@@ -156,7 +167,7 @@
 /* Utility classes */
 @utility text-gradient {
   /* Gradient text effect */
-  @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-[#f4d4a5] to-[#c8b6a6] bg-clip-text text-transparent;
 }
 
 @utility fancy-text {

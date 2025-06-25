@@ -1,12 +1,59 @@
-# React + Vite
+# 🎬 movies-app-react
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek and blazing-fast movie search app built with **Vite + React**. Search movies via **TMDB API**, track the most searched ones with **Appwrite**, and enjoy responsive UI with **Tailwind CSS**. Debouncing handled via `react-use` to keep API hits in check.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚡ **Vite** — lightning-fast dev server & build tool  
+- ⚛️ **React** — frontend framework  
+- 🌀 **react-use** — debounce hook to avoid spamming the API  
+- 🎞️ **TMDB API** — fetch movie data  
+- 🧠 **Appwrite** — store most searched movies  
+- 💅 **Tailwind CSS** — utility-first styling  
 
-## Expanding the ESLint configuration
+## 🔍 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔎 **Debounced Search** using `useDebounce` from `react-use`  
+- 🔥 **Trending Searches** tracked in Appwrite  
+- 🎨 **Clean UI** with Tailwind  
+- ⚡ Super fast performance with Vite  
+
+## 🧪 Getting Started
+
+### Prerequisites
+
+- Node.js >= 18  
+- TMDB API Key  
+- Appwrite project set up
+
+### Install
+
+```bash
+git clone https://github.com/your-username/movieradar.git
+cd movieradar
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file in the root:
+
+```env
+VITE_TMDB_API_KEY=your_tmdb_api_key
+VITE_APPWRITE_PROJECT_ID=your_appwrite_project_id
+VITE_DATABASE_ID=your_appwrite_database_id
+VITE_COLLECTION_ID=your_appwrite_collection_id
+```
+
+### Run Locally
+
+```bash
+npm run dev
+```
+
+## 📦 Build
+
+```bash
+npm run build
+```
+
